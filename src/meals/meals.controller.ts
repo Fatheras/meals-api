@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { GetMealByIngredientQueryDto } from './dto/get-meals-by-ingredient.dto';
-import { MealsService } from './meals.service';
+import { MealsService } from './services/meals.service';
 
 @Controller('meals')
 export class MealsController {

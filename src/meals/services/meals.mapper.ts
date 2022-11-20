@@ -1,7 +1,7 @@
-import { DetailedMeal } from "./dto/detailed-meals.dto";
-import { Ingredient } from "./entities/ingredient.entity";
-import { Meal } from "./entities/meal.entity";
-import { strIngredients, strMeasures } from "./meals.constants";
+import { DetailedMeal } from "../dto/detailed-meals.dto";
+import { Ingredient } from "../entities/ingredient.entity";
+import { Meal } from "../entities/meal.entity";
+import { strIngredients, strMeasures } from "../meals.constants";
 
 export class MealMapper {
     private meal: Meal = new Meal();

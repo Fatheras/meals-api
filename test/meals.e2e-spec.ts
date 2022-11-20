@@ -3,7 +3,7 @@ import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { MealsModule } from '../src/meals/meals.module';
 import { ConfigModule } from '@nestjs/config';
-import { chickedMeals } from './mocks/mocks';
+import { chickenMealsJsonMock } from './mocks/chicken-meals-json.mock';
 
 // it would be better to mock all http requests to MealsAPI in real-world app, 
 // but for testing purposes it's fine I guess
@@ -26,7 +26,7 @@ describe('MealsController (e2e)', () => {
       return request(app.getHttpServer())
         .get(`/meals?ingredient=${'chicken'}`)
         .expect(HttpStatus.OK)
-        .expect(chickedMeals);
+        .expect(chickenMealsJsonMock);
     });
 
     it('should return empty array if there are no meals with such ingredient name', () => {
