@@ -7,7 +7,7 @@ export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
   @Get()
-  findByIngredientName(@Query() { ingredient }: GetMealByIngredientQueryDto) {
+  findByIngredientName(@Query() { ingredient }: GetMealByIngredientQueryDto) {    
     return this.mealsService.findByIngredientName(ingredient);
   }
 }

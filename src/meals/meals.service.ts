@@ -10,7 +10,7 @@ import { MealMapper } from './meals.mapper';
 @Injectable()
 export class MealsService {
   private readonly logger: Logger = new Logger(MealsService.name);
-  private baseURL: string = this.configService.get<string>('MEALS_API_BASE_URL');
+  private readonly baseURL: string = this.configService.get<string>('MEALS_API_BASE_URL');
 
   constructor(
     private readonly httpService: HttpService,
@@ -18,28 +18,34 @@ export class MealsService {
   ) { }
 
   public async findByIngredientName(ingredientName: string): Promise<Meal[]> {
-    if (!ingredientName) {
-      throw new InternalServerErrorException('Ingredient is required');
-    }
+    const { data: basicData } = await this.getBasicDataByIngredientName(ingredientName)
 
-    const { data } = await firstValueFrom(
-      this.httpService.get<GetMealsByIngredientDto>(`${this.baseURL}/api/json/v1/1/filter.php?i=${ingredientName}`).pipe(
-        catchError((error: AxiosError) => {
-          this.logger.error(error.message);
-          throw new ServiceUnavailableException();
-        }),
-      ),
-    )
-
-    if (!data.meals?.length) {
+    if (!basicData.meals?.length) {
       return [];
     }
 
-    const ids: number[] = data.meals.map((meal: MealIngredient) => +meal.idMeal);
+    const ids: number[] = basicData.meals.map((meal: MealIngredient) => +meal.idMeal);
     const detailedData: AxiosResponse<DetailedMealsDto, any>[] = await this.getDetailedMealsByIds(ids);
     const meals: Meal[] = detailedData.map(detailedData => new MealMapper(detailedData.data.meals[0]).map());
 
     return meals;
+  }
+
+  private getBasicDataByIngredientName(ingredientName: string) {
+    if (!ingredientName) {
+      throw new InternalServerErrorException('Ingredient is required');
+    }
+    
+    const kek = firstValueFrom(
+      this.httpService.get<GetMealsByIngredientDto>(`${this.baseURL}/api/json/v1/1/filter.php?i=${ingredientName}`).pipe(
+        catchError((error: AxiosError) => {
+          this.logger.error(error.message);
+          throw new ServiceUnavailableException();
+        })
+      )
+    );
+
+    return kek;
   }
 
   private getDetailedMealsByIds(ids: number[]): Promise<AxiosResponse<DetailedMealsDto, any>[]> {

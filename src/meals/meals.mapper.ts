@@ -5,15 +5,15 @@ import { strIngredients, strMeasures } from "./meals.constants";
 
 export class MealMapper {
     private meal: Meal = new Meal();
-    constructor(private readonly lookupMeal: DetailedMeal) {}
+    constructor(private readonly detailedMeal: DetailedMeal) {}
 
     public map() {
-        this.meal.id = +this.lookupMeal.idMeal;
-        this.meal.name = this.lookupMeal.strMeal;
-        this.meal.instructions = this.lookupMeal.strInstructions;
-        this.meal.tags = this.lookupMeal.strTags?.split(',');
-        this.meal.thumbUrl = this.lookupMeal.strMealThumb;
-        this.meal.youtubeUrl = this.lookupMeal.strYoutube;
+        this.meal.id = +this.detailedMeal.idMeal;
+        this.meal.name = this.detailedMeal.strMeal;
+        this.meal.instructions = this.detailedMeal.strInstructions;
+        this.meal.tags = this.detailedMeal.strTags?.split(',');
+        this.meal.thumbUrl = this.detailedMeal.strMealThumb;
+        this.meal.youtubeUrl = this.detailedMeal.strYoutube;
         this.meal.ingredients = this.getIngredients();
         
         return this.meal;
@@ -24,10 +24,10 @@ export class MealMapper {
 
         // loop through the array until any of the strIngredients is null
         for (let i = 0; i < strIngredients.length; i++) {
-            if (this.lookupMeal[strIngredients[i]]) {
+            if (this.detailedMeal[strIngredients[i]]) {
                 const ingredient = {
-                    ingredient: this.lookupMeal[strIngredients[i]], 
-                    measurement: this.lookupMeal[strMeasures[i]]
+                    ingredient: this.detailedMeal[strIngredients[i]], 
+                    measurement: this.detailedMeal[strMeasures[i]]
                 };
 
                 ingredients.push(ingredient)
