@@ -8,7 +8,7 @@ import { GetMealsByIngredientDto, DetailedMealsDto } from '../dto';
 @Injectable()
 export class MealsFinderService {
   private readonly logger: Logger = new Logger(MealsFinderService.name);
-  private readonly baseURL: string = this.configService.get<string>('MEALS_API_BASE_URL');
+  private readonly baseURL: string = this.configService.get<string>('MEALS_API_BASE_URL') || "https://themealdb.com";
 
   constructor(
     private readonly httpService: HttpService,

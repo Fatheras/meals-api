@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://ecocart.io/" target="blank"><img src="https://lever-client-logos.s3.us-west-2.amazonaws.com/a8166ec8-059b-439c-9e83-dc3f9e342cd1-1664982789427.png" width="400" alt="Logo" /></a>
+  <a href="https://ecocart.io/" target="blank"><img src="https://i.imgur.com/5EET7Q6.png" width="400" alt="Logo" /></a>
 </p>
 
 ## Description
